@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:starter/app/data/values/constants.dart';
 import 'package:starter/app/data/values/env.dart';
 import 'package:starter/utils/helper/exception_handler.dart';
+import 'package:starter/utils/storage/storage_utils.dart';
 
 class NetworkRequester {
   late Dio _dio;
@@ -10,14 +11,47 @@ class NetworkRequester {
     prepareRequest();
   }
 
+  NetworkRequester._recruiterConstructor(){
+    prepareRecruitRequest();
+  }
+
   static final NetworkRequester shared = NetworkRequester._privateConstructor();
+  static final NetworkRequester authenticated = NetworkRequester._recruiterConstructor();
+
+  void prepareRecruitRequest() {
+    BaseOptions dioOptions = BaseOptions(
+      connectTimeout: Timeouts.CONNECT_TIMEOUT,
+      receiveTimeout: Timeouts.RECEIVE_TIMEOUT,
+      baseUrl: Env.baseURL,
+      contentType: Headers.jsonContentType,
+      responseType: ResponseType.json,
+      headers: {'Accept': Headers.jsonContentType,
+          'Authorization': Storage.getAuth(),
+      },
+    );
+
+    _dio = Dio(dioOptions);
+
+    _dio.interceptors.clear();
+
+    _dio.interceptors.addAll([
+      LogInterceptor(
+        error: true,
+        request: true,
+        requestBody: true,
+        requestHeader: true,
+        responseBody: true,
+        responseHeader: true,
+      )
+    ]);
+  }
 
   void prepareRequest() {
     BaseOptions dioOptions = BaseOptions(
       connectTimeout: Timeouts.CONNECT_TIMEOUT,
       receiveTimeout: Timeouts.RECEIVE_TIMEOUT,
       baseUrl: Env.baseURL,
-      contentType: Headers.formUrlEncodedContentType,
+      contentType: Headers.jsonContentType,
       responseType: ResponseType.json,
       headers: {'Accept': Headers.jsonContentType},
     );
@@ -107,4 +141,5 @@ class NetworkRequester {
       return ExceptionHandler.handleError(error);
     }
   }
+
 }

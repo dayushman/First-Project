@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:starter/app/app_controller.dart';
 import 'package:starter/app/data/values/constants.dart';
 import 'package:starter/app/data/values/env.dart';
 import 'package:starter/app/routes/app_pages.dart';
@@ -14,12 +13,9 @@ class App extends StatelessWidget {
       navigatorKey: GlobalKeys.navigationKey,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.theme,
-      initialRoute: Routes.SPLASH,
+      initialRoute: Routes.AUTH_LOGIN,
       getPages: AppPages.pages,
       defaultTransition: Transition.fade,
-      onInit: () {
-        Get.put(AppController());
-      },
     );
   }
 }

@@ -30,7 +30,7 @@ class CustomTextField extends StatelessWidget {
         enabled: isEnabled,
         decoration: InputDecoration(
           errorText: wrapper.errorText.isEmpty ? null : wrapper.errorText,
-          errorStyle: Styles.tsPrimaryColorRegular18,
+          errorStyle: Styles.tsRedColorRegular18,
           counterText: '',
           fillColor: AppColors.white,
           filled: true,
@@ -38,7 +38,7 @@ class CustomTextField extends StatelessWidget {
           enabled: isEnabled,
           errorBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: AppColors.primaryColor,
+              color: AppColors.red,
             ),
             borderRadius: BorderRadius.circular(8.0),
           ),

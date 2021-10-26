@@ -5,8 +5,9 @@ import 'package:starter/app/data/values/strings.dart';
 
 class APIException implements Exception {
   final String message;
+  final Map<String, String> errors;
 
-  APIException({required this.message});
+  APIException({required this.message, this.errors = const{}});
 }
 
 class ExceptionHandler {
@@ -20,8 +21,13 @@ class ExceptionHandler {
         case DioErrorType.connectTimeout:
           return APIException(message: ErrorMessages.connectionTimeout);
         case DioErrorType.response:
-          return APIException(
-              message: ErrorResponse.fromJson(error.response?.data).message);
+          try {
+            final errorResponse = ErrorResponse.fromJson(error.response?.data);
+            return APIException(
+                message: errorResponse.message, errors: errorResponse.errors);
+          } catch (e) {
+            return APIException(message: ErrorMessages.networkGeneral);
+          }
         default:
           return APIException(message: ErrorMessages.networkGeneral);
       }

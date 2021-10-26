@@ -20,6 +20,8 @@ dependencies:
   # Network
   dio: ^4.0.0
 
+  # Toast
+  fluttertoast: ^8.0.8
 dev_dependencies:
   flutter_test:
     sdk: flutter

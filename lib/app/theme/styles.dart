@@ -11,8 +11,23 @@ class Styles {
     fontSize: 18.0,
   );
 
+  static const tsPrimaryColorBold18 = TextStyle(
+    color: AppColors.primaryColor,
+    fontWeight: FontWeight.bold,
+    fontSize: 18.0,
+  );
   static const tsPrimaryColorRegular18 = TextStyle(
     color: AppColors.primaryColor,
+    fontWeight: FontWeight.w400,
+    fontSize: 18.0,
+  );
+  static const tsPrimaryColorRegular16 = TextStyle(
+    color: AppColors.primaryColor,
+    fontWeight: FontWeight.w400,
+    fontSize: 16.0,
+  );
+  static const tsRedColorRegular18 = TextStyle(
+    color: AppColors.red,
     fontWeight: FontWeight.w400,
     fontSize: 18.0,
   );
